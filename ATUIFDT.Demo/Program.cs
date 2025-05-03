@@ -1,28 +1,35 @@
 ﻿using ATUIFDT.Core;
+using static ATUIFDT.Core.Core;
 
-Core.Setup();
-Core.SetBorders(ConsoleColor.Blue);
-Core.AddToTextBuffer(1, 1, "Hello World!");
-Core.AddToTextBuffer(1, 3, "This represents a simple program in our TUI :)");
-Core.DrawBox(2, 4, 4, 4, ConsoleColor.Green);
+Setup();
+SetBorders(ConsoleColor.Blue);
+AddToTextBuffer(1, 1, "Hello World!");
+AddToTextBuffer(1, 3, "This represents a simple program in our TUI :)");
+DrawBox(2, 4, 4, 4, ConsoleColor.Green);
 // Task.Delay(1000).Wait();
 // Core.CleanArea(2, 4, 4, 4, ConsoleColor.White);
-Core.Button button = new Core.Button("Hello! there!", true);
-Core.Button button2 = new Core.Button("I know more than sin is whatever it is", false);
-Core.Button button3 = new Core.Button("Wow :)", false);
+Button button = new Button("Some option 1", true);
+Button button2 = new Button("SOME OPTION 2!", false);
+Button button3 = new Button("some option 3?", false);
 
-Core.Button btnRecieved = Core.ShowNGetOptions(new() { button, button2, button3 });
+Button btnRecieved = ShowNGetOptions([button, button2, button3]);
 if (btnRecieved.text == button2.text)
 {
-    Core.AddToTextBuffer(3, 5, "Wow your english is bad lol", ConsoleColor.DarkYellow);
+    AddToTextBuffer(3, 5, "So you are a middle guy eh?", ConsoleColor.Yellow);
 }
 else
 {
-    Core.AddToTextBuffer(3, 5, "lolz", ConsoleColor.Red);
+    AddToTextBuffer(3, 5, "lolz epic", ConsoleColor.Gray);
 }
 
-Core.ApplyTextChanges(); //ensure that you update text as its never automatic unless its shapes or such being drawn
+AddToTextBuffer(3, 6, "Enter some input");
+ApplyTextChanges(); //ensure that you update text as its never automatic unless its shapes or input or other such being drawn
+ShowNGetInput(3, 7);
 
-Core.ShowNGetInput(3, 6);
+AddToTextBuffer(3, 8, "Enter some numeric input");
+ApplyTextChanges();
+ShowNGetInput(3, 9, numberOnly: true);
 
-Core.ShowNGetInput(4, 7, numberOnly: true);
+AddToTextBuffer(3, 10, "Enter some password input");
+ApplyTextChanges();
+ShowNGetInput(3, 11, passwordText: true);
