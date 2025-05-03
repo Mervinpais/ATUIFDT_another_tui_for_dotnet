@@ -86,6 +86,11 @@ public static class Core
         }
     }
 
+    public static void RemoveFromTextBuffer_charOnly(int posX, int posY)
+    {
+        buffer[posY, posX] = (Console.ForegroundColor, ' ');
+    }
+
     public static void DrawBox(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
     {
         AddToTextBuffer(posX, posY, "┏".PadRight(sizeX, '━') + "┓", consoleColor);
@@ -177,16 +182,25 @@ public static class Core
         int new_posX = posX;
         while (cki.Key != ConsoleKey.Enter)
         {
-            if (input.Length >= stringMaxLength)
-            {
-                continue;
-            }
             cki = Console.ReadKey();
             if (cki.Key == ConsoleKey.Enter) break; // to ensure the input will not be destroyed on enter, so we can just see the text :)
 
             if (cki.Key == ConsoleKey.Backspace)
             {
-                
+                AddToTextBuffer_charOnly(new_posX, posY, '|'); //add the | character here as we backspace
+                RemoveFromTextBuffer_charOnly(new_posX + 1, posY); //to remove the '|' char from previous position
+                //note; this would lead to a bug if the newposX is width, but ill fix it later :_)
+                new_posX--;
+                Console.SetCursorPosition(new_posX, posY);
+                ApplyTextChanges();
+                continue;
+            }
+
+            //for valid input, below;
+
+            if (input.Length >= stringMaxLength) //ensure we are in our bounds
+            {
+                continue;
             }
 
             if (passwordText && (numberOnly || !numberOnly)) //even if its a number only or not...

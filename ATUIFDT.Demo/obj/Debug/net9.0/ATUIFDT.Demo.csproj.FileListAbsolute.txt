@@ -16,3 +16,4 @@
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/obj/Debug/net9.0/ATUIFDT.Demo.pdb
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/obj/Debug/net9.0/ATUIFDT.Demo.genruntimeconfig.cache
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/obj/Debug/net9.0/ref/ATUIFDT.Demo.dll
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/obj/Debug/net9.0/ATUIFDT.Demo.sourcelink.json

@@ -9,3 +9,4 @@
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/refint/ATUIFDT.Core.dll
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.pdb
 /home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ref/ATUIFDT.Core.dll
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.sourcelink.json
