@@ -1,4 +1,4 @@
-# ATUIFDT (Another TUI for Dotnet️™)
+# ATUIFDT (Another TUI for Dotnet️)
 
 This project aims to be a very simple and clean make-do TUI for general needs. It can do buttons with options, text, borders, boxes, clearing areas of the screen, etc. and many more things that will come soon!
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ATUIFDT.Demo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb5a35a0fe89d2cde1a427cecb6f1334cfee70c9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8c8f6a5531d2c530fe335a78747e72dd90b26c99")]
 [assembly: System.Reflection.AssemblyProductAttribute("ATUIFDT.Demo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ATUIFDT.Demo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
