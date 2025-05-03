@@ -187,10 +187,13 @@ public static class Core
 
             if (cki.Key == ConsoleKey.Backspace)
             {
-                AddToTextBuffer_charOnly(new_posX, posY, '|'); //add the | character here as we backspace
+                if (new_posX > posX && new_posX < width)
+                {
+                    new_posX--;
+                }
                 RemoveFromTextBuffer_charOnly(new_posX + 1, posY); //to remove the '|' char from previous position
-                //note; this would lead to a bug if the newposX is width, but ill fix it later :_)
-                new_posX--;
+                RemoveFromTextBuffer_charOnly(new_posX, posY); AddToTextBuffer_charOnly(new_posX, posY, '|'); //add the | character here as we backspace
+                input = input.Substring(0, input.Length - 1); //to fix the bug with the max string length
                 Console.SetCursorPosition(new_posX, posY);
                 ApplyTextChanges();
                 continue;
@@ -218,6 +221,15 @@ public static class Core
                     input += cki.KeyChar;
                     AddToTextBuffer_charOnly(new_posX, posY, cki.KeyChar);
                     AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
+                }
+                else
+                {
+                    if (new_posX > posX && new_posX < width)
+                    {
+                        new_posX--;
+                    }
+                    Console.SetCursorPosition(new_posX, posY);
+                    continue;
                 }
             }
             else
