@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/ATUIFDT.Demo.csproj": {}
+  },
+  "projects": {
+    "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/ATUIFDT.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/ATUIFDT.Core.csproj",
+        "projectName": "ATUIFDT.Core",
+        "projectPath": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/ATUIFDT.Core.csproj",
+        "packagesPath": "/home/mpais/.nuget/packages/",
+        "outputPath": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/mpais/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/usr/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/ATUIFDT.Demo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/ATUIFDT.Demo.csproj",
+        "projectName": "ATUIFDT.Demo",
+        "projectPath": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/ATUIFDT.Demo.csproj",
+        "packagesPath": "/home/mpais/.nuget/packages/",
+        "outputPath": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Demo/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/mpais/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/usr/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/ATUIFDT.Core.csproj": {
+                "projectPath": "/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/ATUIFDT.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

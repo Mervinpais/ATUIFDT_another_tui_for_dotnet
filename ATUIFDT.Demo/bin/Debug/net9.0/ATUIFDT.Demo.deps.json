@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "ATUIFDT.Demo/1.0.0": {
+        "dependencies": {
+          "ATUIFDT.Core": "1.0.0"
+        },
+        "runtime": {
+          "ATUIFDT.Demo.dll": {}
+        }
+      },
+      "ATUIFDT.Core/1.0.0": {
+        "runtime": {
+          "ATUIFDT.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ATUIFDT.Demo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ATUIFDT.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

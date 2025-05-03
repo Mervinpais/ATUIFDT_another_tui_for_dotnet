@@ -1,0 +1,11 @@
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/bin/Debug/net9.0/ATUIFDT.Core.deps.json
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/bin/Debug/net9.0/ATUIFDT.Core.dll
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/bin/Debug/net9.0/ATUIFDT.Core.pdb
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.AssemblyInfoInputs.cache
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.AssemblyInfo.cs
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.csproj.CoreCompileInputs.cache
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.dll
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/refint/ATUIFDT.Core.dll
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ATUIFDT.Core.pdb
+/home/mpais/Other Projects/Learning Projects/ATUIFDT_another_tui_for_dotnet/ATUIFDT.Core/obj/Debug/net9.0/ref/ATUIFDT.Core.dll
