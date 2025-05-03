@@ -10,240 +10,266 @@ namespace ATUIFDT.Core;
 
 public static class Core
 {
-    static int height;
-    static int width;
-    private static bool redrawAfterInput = true;
-    static (ConsoleColor, char)[,] buffer = new (ConsoleColor, char)[0, 0];
-    static public void Setup()
+    public static void ClearScreen()
     {
-        SetWindowSize();
-        ApplyTextChanges();
-    }
-
-    static public void SetBorders(ConsoleColor consoleColor)
-    {
-        AddToTextBuffer(0, 0, "┏".PadRight(width, '━') + "┓", consoleColor);
-        for (var i = 0; i < height - 2; i++)
-        {
-            AddToTextBuffer(0, i + 1, "┃", consoleColor);
-            AddToTextBuffer(width - 1, i + 1, "┃", consoleColor);
-        }
-        AddToTextBuffer(0, height - 1, "┗".PadRight(width, '━') + "┛", consoleColor);
-        ApplyTextChanges();
-    }
-
-    static void SetWindowSize()
-    {
-        height = Console.WindowHeight - 1;
-        width = Console.WindowWidth;
-        buffer = new (ConsoleColor, char)[height, width];
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                buffer[y, x] = (ConsoleColor.Black, ' ');
-            }
-        }
-    }
-
-    public static void ApplyTextChanges()
-    {
-        //Console.WriteLine(string.Join(Environment.NewLine, buffer));
         Console.Clear();
-        for (int yPos = 0; yPos < height; yPos++)
+    }
+
+    public class Window
+    {
+        int startX = -1;
+        int startY = -1;
+        int endX = -1;
+        int endY = -1;
+        int height;
+        int width;
+        (ConsoleColor, char)[,] buffer = new (ConsoleColor, char)[0, 0];
+
+        public Window(int StartX, int StartY, int EndX, int EndY, (ConsoleColor, char)[,] Buffer = null)
         {
-            for (int xPos = 0; xPos < width; xPos++)
+            startX = StartX; startY = StartY;
+            endX = EndX; endY = EndY;
+            //height = Height; width = Width; Height and width will be set automatically on setup
+            if (Buffer != null)
             {
-                var (color, ch) = buffer[yPos, xPos];
-                Console.ForegroundColor = color;
-                Console.Write(ch);
+                buffer = Buffer;
             }
-            Console.Write(Environment.NewLine);
         }
-        Console.ResetColor();
-    }
 
-    public static void AddToTextBuffer_charOnly(int posX, int posY, char charact, ConsoleColor consoleColor = ConsoleColor.White)
-    {
-        buffer[posY, posX] = (consoleColor, charact);
-    }
-
-    public static void AddToTextBuffer(int posX, int posY, string text, ConsoleColor consoleColor = ConsoleColor.White)
-    {
-        foreach (char c in text)
+        public void Setup()
         {
-            if (posX >= width)
+            SetWindowSize();
+            ApplyTextChanges();
+        }
+
+        public void SetBorders(ConsoleColor consoleColor)
+        {
+            DrawBox(0, 0, width, height - 1, consoleColor);
+        }
+
+        void SetWindowSize()
+        {
+            if (startX == -1) { startX = 0; }
+            if (startY == -1) { startY = 0; }
+            if (endX == -1) { endX = Console.WindowWidth - 1; }
+            if (endY == -1) { endY = Console.WindowHeight; }
+            height = endY - startY;
+            width = endX - startX;
+            buffer = new (ConsoleColor, char)[height, width];
+            for (int y = 0; y < height; y++)
             {
-                posX = 0;
-                posY++;
-            }
-
-            if (posY >= height)
-                break;
-
-            AddToTextBuffer_charOnly(posX, posY, c, consoleColor);
-            posX++;
-        }
-    }
-
-    public static void RemoveFromTextBuffer_charOnly(int posX, int posY)
-    {
-        buffer[posY, posX] = (Console.ForegroundColor, ' ');
-    }
-
-    public static void DrawBox(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
-    {
-        AddToTextBuffer(posX, posY, "┏".PadRight(sizeX, '━') + "┓", consoleColor);
-        for (var i = 0; i < sizeY - 2; i++)
-        {
-            AddToTextBuffer(posX, posY + i + 1, "┃", consoleColor);
-            AddToTextBuffer(posX + sizeX, posY + i + 1, "┃", consoleColor);
-        }
-        AddToTextBuffer(posX, posY + sizeY - 1, "┗".PadRight(sizeX, '━') + "┛", consoleColor);
-        ApplyTextChanges();
-    }
-
-    public static void CleanArea(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
-    {
-        AddToTextBuffer(posX, posY, " ".PadRight(sizeX, ' ') + " ", consoleColor);
-        for (var i = 0; i < sizeY - 2; i++)
-        {
-            AddToTextBuffer(posX, posY + i + 1, " ".PadRight(sizeX + 1, ' '), consoleColor);
-        }
-        AddToTextBuffer(posX, posY + sizeY - 1, " ".PadRight(sizeX, ' ') + " ", consoleColor);
-        ApplyTextChanges();
-    }
-
-    public static Button ShowNGetOptions(List<Button> buttons)
-    {
-        ConsoleKeyInfo cki = new ConsoleKeyInfo();
-        int ypositionForButtons = height - buttons.Count - 2;
-        int selectedBTN_idx = 0;
-        while (cki.Key != ConsoleKey.Escape)
-        {
-            Console.SetCursorPosition(2, ypositionForButtons);
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                Button btn = buttons[i];
-                if (btn.selected == false)
+                for (int x = 0; x < width; x++)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.BackgroundColor = ConsoleColor.Black;
+                    buffer[y, x] = (ConsoleColor.Black, ' ');
                 }
-                else
+            }
+        }
+
+        public void ApplyTextChanges()
+        {
+            //Console.WriteLine(string.Join(Environment.NewLine, buffer));
+            for (int yPos = 0; yPos < height; yPos++)
+            {
+                for (int xPos = 0; xPos < width; xPos++)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    selectedBTN_idx = i;
+                    var (color, ch) = buffer[yPos, xPos];
+                    Console.ForegroundColor = color;
+                    Console.SetCursorPosition(startX + xPos, startY + yPos);
+                    Console.Write(ch);
                 }
-                Console.WriteLine(btn.text);
-                Console.SetCursorPosition(2, Console.CursorTop);
+                Console.Write(Environment.NewLine);
             }
-            cki = Console.ReadKey();
-            if (cki.Key == ConsoleKey.UpArrow)
+            Console.ResetColor();
+        }
+
+        public void AddToTextBuffer_charOnly(int posX, int posY, char charact, ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            buffer[posY, posX] = (consoleColor, charact);
+        }
+
+        public void AddToTextBuffer(int posX, int posY, string text, ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            foreach (char c in text)
             {
-                buttons[selectedBTN_idx].selected = false;
-                selectedBTN_idx--;
+                if (posX >= width)
+                {
+                    posX = 0;
+                    posY++;
+                }
+
+                if (posY >= height)
+                {
+                    posY = height - 1;
+                }
+
+                AddToTextBuffer_charOnly(posX, posY, c, consoleColor);
+                posX++;
             }
-            else if (cki.Key == ConsoleKey.DownArrow)
+        }
+
+        public void RemoveFromTextBuffer_charOnly(int posX, int posY)
+        {
+            buffer[posY, posX] = (Console.ForegroundColor, ' ');
+        }
+
+        public void DrawBox(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            AddToTextBuffer(posX, posY, "┏".PadRight(sizeX - 1, '━') + "┓", consoleColor);
+            for (var i = 1; i < sizeY; i++)
             {
-                buttons[selectedBTN_idx].selected = false;
-                selectedBTN_idx++;
+                AddToTextBuffer(posX, posY + i, "┃", consoleColor);
+                AddToTextBuffer(posX + sizeX - 1, posY + i, "┃", consoleColor);
             }
-            else if (cki.Key == ConsoleKey.Enter)
+            AddToTextBuffer(posX, sizeY + 1, "┗".PadRight(sizeX - 1, '━') + "┛", consoleColor);
+            ApplyTextChanges();
+        }
+
+        public void CleanArea(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
+        {
+            AddToTextBuffer(posX, posY, " ".PadRight(sizeX, ' ') + " ", consoleColor);
+            for (var i = 0; i < sizeY - 2; i++)
             {
+                AddToTextBuffer(posX, posY + i + 1, " ".PadRight(sizeX + 1, ' '), consoleColor);
+            }
+            AddToTextBuffer(posX, posY + sizeY - 1, " ".PadRight(sizeX, ' ') + " ", consoleColor);
+            ApplyTextChanges();
+        }
+
+        public Button ShowNGetOptions(List<Button> buttons)
+        {
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            int ypositionForButtons = height - buttons.Count - 2;
+            int selectedBTN_idx = 0;
+            while (cki.Key != ConsoleKey.Escape)
+            {
+                Console.SetCursorPosition(startX + 2, ypositionForButtons);
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    Button btn = buttons[i];
+                    if (btn.selected == false)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = ConsoleColor.White;
+                        selectedBTN_idx = i;
+                    }
+                    Console.WriteLine(btn.text);
+                    Console.SetCursorPosition(startX + 2, Console.CursorTop);
+                }
+                cki = Console.ReadKey();
+                
+                if (cki.Key == ConsoleKey.UpArrow)
+                {
+                    buttons[selectedBTN_idx].selected = false;
+                    selectedBTN_idx--;
+                }
+                else if (cki.Key == ConsoleKey.DownArrow)
+                {
+                    buttons[selectedBTN_idx].selected = false;
+                    selectedBTN_idx++;
+                }
+                else if (cki.Key == ConsoleKey.Enter)
+                {
+                    buttons[selectedBTN_idx].selected = true;
+                    break;
+                }
+                if (selectedBTN_idx < 0) selectedBTN_idx = 0;
+                if (selectedBTN_idx > buttons.Count - 1) selectedBTN_idx = buttons.Count - 1;
                 buttons[selectedBTN_idx].selected = true;
-                break;
             }
-            if (selectedBTN_idx < 0) selectedBTN_idx = 0;
-            if (selectedBTN_idx > buttons.Count - 1) selectedBTN_idx = buttons.Count - 1;
-            buttons[selectedBTN_idx].selected = true;
+            Console.ResetColor();
+            return buttons[selectedBTN_idx];
         }
-        Console.ResetColor();
-        return buttons[selectedBTN_idx];
-    }
 
-    public class Button
-    {
-        public string text;
-        public bool selected = false;
-        public Button(string Text, bool Selected)
+        public class Button
         {
-            text = Text;
-            selected = Selected;
+            public string text;
+            public bool selected = false;
+            public Button(string Text, bool Selected)
+            {
+                text = Text;
+                selected = Selected;
+            }
         }
-    }
 
-    public static string ShowNGetInput(int posX, int posY, int stringMaxLength = 24, bool numberOnly = false, bool passwordText = false)
-    {
-        Console.SetCursorPosition(posX, posY);
-        string? input = "";
-        ConsoleKeyInfo cki = new();
-        int new_posX = posX;
-        while (cki.Key != ConsoleKey.Enter)
+        public string ShowNGetInput(int posX, int posY, int stringMaxLength = 24, bool numberOnly = false, bool passwordText = false)
         {
-            cki = Console.ReadKey();
-            if (cki.Key == ConsoleKey.Enter) break; // to ensure the input will not be destroyed on enter, so we can just see the text :)
+            Console.SetCursorPosition(posX, posY);
+            string? input = "";
+            ConsoleKeyInfo cki = new();
+            int new_posX = posX;
 
-            if (cki.Key == ConsoleKey.Backspace)
-            {
-                if (new_posX > posX && new_posX < width)
-                {
-                    new_posX--;
-                }
-                RemoveFromTextBuffer_charOnly(new_posX + 1, posY); //to remove the '|' char from previous position
-                RemoveFromTextBuffer_charOnly(new_posX, posY); AddToTextBuffer_charOnly(new_posX, posY, '|'); //add the | character here as we backspace
-                input = input.Substring(0, input.Length - 1); //to fix the bug with the max string length
-                Console.SetCursorPosition(new_posX, posY);
-                ApplyTextChanges();
-                continue;
-            }
+            if ((posX + startX > startX + width) || (posY + startY > startY + height)) { throw new Exception("Invalid position for Input!"); }
 
-            //for valid input, below;
+            while (cki.Key != ConsoleKey.Enter)
+            {
+                cki = Console.ReadKey(true);
+                if (cki.Key == ConsoleKey.Enter) break; // to ensure the input will not be destroyed on enter, so we can just see the text :)
 
-            if (input.Length >= stringMaxLength) //ensure we are in our bounds
-            {
-                continue;
-            }
-
-            if (passwordText && (numberOnly || !numberOnly)) //even if its a number only or not...
-            {
-                input += '*';
-                AddToTextBuffer_charOnly(new_posX, posY, '*');
-                AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
-            }
-            else if (numberOnly)
-            {
-                if (cki.KeyChar == '1' || cki.KeyChar == '2' || cki.KeyChar == '3' || cki.KeyChar == '4'
-                    || cki.KeyChar == '4' || cki.KeyChar == '5' || cki.KeyChar == '6' || cki.KeyChar == '7'
-                    || cki.KeyChar == '8' || cki.KeyChar == '9' || cki.KeyChar == '0')
-                {
-                    input += cki.KeyChar;
-                    AddToTextBuffer_charOnly(new_posX, posY, cki.KeyChar);
-                    AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
-                }
-                else
+                if (cki.Key == ConsoleKey.Backspace)
                 {
                     if (new_posX > posX && new_posX < width)
                     {
                         new_posX--;
                     }
+                    RemoveFromTextBuffer_charOnly(new_posX + 1, posY); //to remove the '|' char from previous position
+                    RemoveFromTextBuffer_charOnly(new_posX, posY); AddToTextBuffer_charOnly(new_posX, posY, '|'); //add the | character here as we backspace
+                    input = input.Substring(0, input.Length - 1); //to fix the bug with the max string length
                     Console.SetCursorPosition(new_posX, posY);
+                    ApplyTextChanges();
                     continue;
                 }
-            }
-            else
-            {
-                input += cki.KeyChar;
-                AddToTextBuffer_charOnly(new_posX, posY, cki.KeyChar);
-                AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
-            }
-            new_posX++;
-            if (new_posX >= width) { posY++; new_posX = posX; }
-            ApplyTextChanges();
-        }
-        if (input == null) { input = ""; }
 
-        return input;
+                //for valid input, below;
+
+                if (input.Length >= stringMaxLength) //ensure we are in our bounds
+                {
+                    continue;
+                }
+
+                if (passwordText && (numberOnly || !numberOnly)) //even if its a number only or not...
+                {
+                    input += '*';
+                    AddToTextBuffer_charOnly(new_posX, posY, '*');
+                    AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
+                }
+                else if (numberOnly)
+                {
+                    if (cki.KeyChar == '1' || cki.KeyChar == '2' || cki.KeyChar == '3' || cki.KeyChar == '4'
+                        || cki.KeyChar == '4' || cki.KeyChar == '5' || cki.KeyChar == '6' || cki.KeyChar == '7'
+                        || cki.KeyChar == '8' || cki.KeyChar == '9' || cki.KeyChar == '0')
+                    {
+                        input += cki.KeyChar;
+                        AddToTextBuffer_charOnly(new_posX, posY, cki.KeyChar);
+                        AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
+                    }
+                    else
+                    {
+                        if (new_posX > posX && new_posX < width)
+                        {
+                            new_posX--;
+                        }
+                        Console.SetCursorPosition(new_posX, posY);
+                        continue;
+                    }
+                }
+                else
+                {
+                    input += cki.KeyChar;
+                    AddToTextBuffer_charOnly(new_posX, posY, cki.KeyChar);
+                    AddToTextBuffer_charOnly(new_posX + 1, posY, '|');
+                }
+                new_posX++;
+                if (new_posX >= width) { posY++; new_posX = posX; }
+                ApplyTextChanges();
+            }
+            if (input == null) { input = ""; }
+
+            return input;
+        }
     }
 }
