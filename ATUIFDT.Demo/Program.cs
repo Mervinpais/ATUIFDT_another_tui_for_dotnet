@@ -41,3 +41,5 @@ Window window2 = new Window(1,1,20,10);
 window2.Setup();
 window2.SetBorders(ConsoleColor.Blue);
 window2.DrawBox(3, 2, 10, 5, ConsoleColor.Green);
+
+WaitForExit();

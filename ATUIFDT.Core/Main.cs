@@ -15,6 +15,15 @@ public static class Core
         Console.Clear();
     }
 
+    public static void WaitForExit()
+    {
+        Console.SetCursorPosition(2, Console.WindowHeight - 1);
+        Console.ResetColor();
+        Console.WriteLine("Press any key to exit");
+        Console.ReadKey(true);
+        Environment.Exit(0);
+    }
+
     public class Window
     {
         int startX = -1;
@@ -38,6 +47,8 @@ public static class Core
 
         public void Setup()
         {
+            Console.ResetColor();
+
             SetWindowSize();
             ApplyTextChanges();
         }
@@ -124,14 +135,15 @@ public static class Core
             ApplyTextChanges();
         }
 
-        public void CleanArea(int posX, int posY, int sizeX, int sizeY, ConsoleColor consoleColor = ConsoleColor.White)
+        public void CleanArea(int posX, int posY, int sizeX, int sizeY)
         {
-            AddToTextBuffer(posX, posY, " ".PadRight(sizeX, ' ') + " ", consoleColor);
-            for (var i = 0; i < sizeY - 2; i++)
+            AddToTextBuffer(posX, posY, " ".PadRight(sizeX - 1, ' ') + " ");
+            for (var i = 1; i < sizeY; i++)
             {
-                AddToTextBuffer(posX, posY + i + 1, " ".PadRight(sizeX + 1, ' '), consoleColor);
+                AddToTextBuffer(posX, posY + i, " ");
+                AddToTextBuffer(posX + sizeX - 1, posY + i, " ");
             }
-            AddToTextBuffer(posX, posY + sizeY - 1, " ".PadRight(sizeX, ' ') + " ", consoleColor);
+            AddToTextBuffer(posX, sizeY + 1, " ".PadRight(sizeX - 1, ' ') + " ");
             ApplyTextChanges();
         }
 
@@ -161,7 +173,7 @@ public static class Core
                     Console.SetCursorPosition(startX + 2, Console.CursorTop);
                 }
                 cki = Console.ReadKey();
-                
+
                 if (cki.Key == ConsoleKey.UpArrow)
                 {
                     buttons[selectedBTN_idx].selected = false;
